@@ -60,10 +60,21 @@ function config($stateProvider) {
         }
       }
     })
+    // .state('main.product', {
+    //   abstract: true,
+    //   url: ':id',
+    //   controller: 'ProductController as PC',
+    //   templateUrl: '/routing-demo/product.html',
+    // })
     // PRODUCT DEFAULT SUBSTATE
     .state('main.product.index', {
       url: '',
       views: {
+        // SET IN PARENT STATE
+        // 'widget': {
+        //   controller: 'WidgetController as PWC',
+        //   templateUrl: '/routing-demo/widget.html' 
+        // },
         'intro': {
           controller: 'IntroController as PIC',
           templateUrl: '/routing-demo/intro.html' 
@@ -78,6 +89,10 @@ function config($stateProvider) {
     .state('main.product.details', {
       url: '/details',
       views: {
+        // 'widget': {
+        //   controller: 'WidgetController as PWC',
+        //   templateUrl: '/routing-demo/widget.html' 
+        // },
         'content': {
           controller: 'ContentController as PCC',
           templateUrl: '/routing-demo/content.html'
