@@ -1,4 +1,4 @@
-# Toptal Blog: <br />10 most common AngularJS mistakes <br />demo app!
+# AngularJS article <br />demo app!!
 
 ## Run the app
 
