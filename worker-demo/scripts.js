@@ -30,7 +30,3 @@ function scoringService($q) {
 
 angular.module('app.worker')
 .factory('scoringService', scoringService);
-
-angular.module('app', [
-  'app.worker'
-]);
