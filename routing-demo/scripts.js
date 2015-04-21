@@ -1,7 +1,7 @@
 function MainController($scope) {
   this.foo = 1;
   var that = this;
-  console.log('test');
+  console.log('Main Controller executed');
 }
 
 function ContentController($state) {
@@ -13,12 +13,15 @@ function ContentController($state) {
 }
 
 function HomepageController() {
+
 }
 
 function IntroController() {
+  console.log('Intro Controller executed');
 }
 
 function ProductController() {
+  console.log('Product Controller executed');
 }
 
 function WidgetController($interval) {
@@ -29,6 +32,18 @@ function WidgetController($interval) {
   }, 987);
 }
 
+function resolve(index, timeout) {
+  return {
+    data: function($q, $timeout) {
+      var deferred = $q.defer();
+      $timeout(function () {
+        deferred.resolve(console.log('Data resolve called ' + index));
+      }, timeout);
+      return deferred.promise;
+    }
+  };
+}
+
 function config($stateProvider) {
   $stateProvider
     // MAIN ABSTRACT STATE, ALWAYS ON
@@ -36,7 +51,8 @@ function config($stateProvider) {
       abstract: true,
       url: '/',
       controller: 'MainController as MC',
-      templateUrl: '/routing-demo/main.html'
+      templateUrl: '/routing-demo/main.html',
+      resolve: resolve(1, 1597)
     })
     // A SIMPLE HOMEPAGE
     .state('main.homepage', {
@@ -51,14 +67,15 @@ function config($stateProvider) {
       views: {
         '@main': {
           controller: 'ProductController as PC',
-          templateUrl: '/routing-demo/product.html' 
+          templateUrl: '/routing-demo/product.html',
+          resolve: resolve(2, 2584)
         },
         // BY DEFINING A CHILD VIEW ALREADY HERE, WE ENSURE IT DOES NOT RELOAD ON CHILD STATE CHANGE
         'widget@main.product': {
           controller: 'WidgetController as PWC',
           templateUrl: '/routing-demo/widget.html' 
         }
-      }
+      },
     })
     // .state('main.product', {
     //   abstract: true,
@@ -77,13 +94,14 @@ function config($stateProvider) {
         // },
         'intro': {
           controller: 'IntroController as PIC',
-          templateUrl: '/routing-demo/intro.html' 
+          templateUrl: '/routing-demo/intro.html'
         },
         'content': {
           controller: 'ContentController as PCC',
           templateUrl: '/routing-demo/content.html'
         }
-      }
+      },
+      resolve: resolve(3, 987)
     })
     // PRODUCT DETAILS SUBSTATE
     .state('main.product.details', {
@@ -102,7 +120,54 @@ function config($stateProvider) {
 
 }
 
-angular.module('articleApp', [
+function resolve(index, timeout) {
+  return {
+    data: function($q, $timeout) {
+      var deferred = $q.defer();
+      $timeout(function () {
+        deferred.resolve(console.log('Data resolve called ' + index));
+      }, timeout);
+      return deferred.promise;
+    }
+  };
+}
+
+function configResolves($stateProvide) {
+  $stateProvider
+    // MAIN ABSTRACT STATE, ALWAYS ON
+    .state('main', {
+      // abstract: true,
+      url: '/',
+      controller: 'MainController as MC',
+      templateUrl: '/routing-demo/main.html',
+      resolve: resolve(1, 1597)
+    })
+    // A COMPLEX PRODUCT PAGE
+    .state('main.product', {
+      // abstract: true,
+      url: ':id',  
+      controller: 'ProductController as PC',
+      templateUrl: '/routing-demo/product.html',
+      resolve: resolve(2, 2584)
+    })
+    // PRODUCT DEFAULT SUBSTATE
+    .state('main.product.index', {
+      url: '',
+      views: {
+        'intro': {
+          controller: 'IntroController as PIC',
+          templateUrl: '/routing-demo/intro.html'
+        },
+        'content': {
+          controller: 'ContentController as PCC',
+          templateUrl: '/routing-demo/content.html'
+        }
+      },
+      resolve: resolve(3, 987)
+    });
+}
+
+angular.module('app', [
   'ui.router'
 ])
 .config(config)
