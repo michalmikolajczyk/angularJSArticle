@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="app">
+
+  <head>
+    <title>Toptal Blog Article</title>
+    <base href="/routing-demo">
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+    <meta name="ap-mobile-web-app-capable" content="yes"/>
+    <meta charset="UTF-8"/>
+    
+    <link rel="stylesheet" href="/bower_components/angular-rangeslider/angular.rangeSlider.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/angularjs/angular.js"></script>  
+    <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-rangeslider/angular.rangeSlider.js"></script>
+    <script type="text/javascript" src="/slider-demo/scripts.js"></script>  
+
+  </head>
+
+  <body ng-controller="MainController as MC">
+    <section>
+      <h1>Slider demo</h1>
+      <h2>Bad performance</h2>
+      <div range-slider 
+        min="0"
+        max="MC.maxPrice"
+        pin-handle="min"
+        model-max="MC.price"
+      >
+      </div>
+      <h2>Good performance</h2>
+      <div range-slider 
+        min="0"
+        max="MC.maxPrice"
+        pin-handle="min"
+        model-max="MC.priceTemporary"
+      >
+      </div>
+    </section>
+  </body>
+
+</html>
