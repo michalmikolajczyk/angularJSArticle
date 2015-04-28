@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="app">
+
+<head>
+  <title>test</title>
+  <base href="/dot-demo">
+  <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"/>
+  <meta name="ap-mobile-web-app-capable" content="yes"/>
+  <meta charset="UTF-8"/>
+  
+  <link rel="stylesheet" type="text/css" href="/css/styles.css"/>
+  <script type="text/javascript" src="/bower_components/angularjs/angular.js"></script>  
+  <script type="text/javascript" src="/attributes-demo/scripts.js"></script>  
+
+</head>
+
+<body ng-controller="MainController as MC">
+
+  <div class="cyan-surface">
+    <h1 style="font-size: 21px;">Attributes test</h1>
+    <test-directive watch-attribute="MC.foo" observe-attribute="current index: {{ MC.baz }}"></test-directive>
+  </div>
+
+  <!-- <p isolated-scope-directive another-isolated-scope-directive ng-if="MC.quux" ng-repeat="q in MC.quux"> -->
+  <p isolated-scope-directive ng-if="MC.quux" ng-repeat="q in MC.quux">
+    <div ng-controller="AnotherController">
+      … the isolated scope is not available here, look: {{ isolatedModel }}
+    </div>
+  </p>
+  <p ng-if="MC.baz" ng-repeat="q in MC.quux">{{ q }}</p>
+
+</body>
+
+</html>
